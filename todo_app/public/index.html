@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="todoApp">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="controller.js"></script>
+
+</head>
+<title>ToDo App</title>
+<div class="container">
+  <div class="row" style="background-color: azure">
+    <h1 style="text-align: center">To Do App</h1>
+  </div>
+  &nbsp;
+
+  <body ng-controller="todoCtrl">
+    <div class="row">
+      <div class="col-sm-3">
+        <h2>Add a new Task</h2>
+      </div>
+      <div class="col-sm-6 form-group">
+        <label for="todoName">Name:</label>
+        <input id="todoName" type="text" class="form-control" placeholder="Task Name" ng-model="todo.text"> &nbsp;<br>
+        <button type="button" class="btn btn-primary btn-lg" ng-click="addTask()">Add Task</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <h2>List of tasks</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5" ng-repeat="todo in todos">
+
+      </div>
+  </body>
+  </div>
+
+</html>
