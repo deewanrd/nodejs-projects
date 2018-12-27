@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const todoModel = require('./models/Todo');
+const controller = require('./controller');
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.get('*', function (req, res) {
 
 app.post('/createTask', function (req, res) {
   let text = req.body.text;
-  console.log("Text: ", text);
+  controller.createTask(req, res, text, todoModel.ToDo);
 })
 
 app.listen(8080, function () {

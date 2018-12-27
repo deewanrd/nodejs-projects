@@ -7,12 +7,13 @@ todoApp.controller('todoCtrl', function ($scope, $http) {
   }
 
   $scope.addTask = function () {
-    console.log("Name: ", $scope.todo.name);
     $http.post('http://localhost:8080/createTask', $scope.todo).
       then(function (response) {
-        console.log("Response: ", response);
+        alert(response.data);
+        $scope.todo.text = '';
       }, function (error) {
-        console.error("Error: ", error);
+        alert(error.data);
+        $scope.todo.text = '';
       })
   }
 })
