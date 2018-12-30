@@ -23,13 +23,22 @@ db.on('error', function (error) {
     console.log("Connected to Mongodb")
   })
 
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 })
 
 app.post('/createTask', function (req, res) {
   let text = req.body.text;
   controller.createTask(req, res, text, todoModel.ToDo);
+})
+
+app.get('/fetchTasks', function (req, res) {
+  controller.fetchTasks(req, res, todoModel.ToDo);
+})
+
+app.delete('/deleteTask/:taskId', function (req, res) {
+  let taskId = req.params.taskId;
+  controller.deleteTask(req, res, taskId, todoModel.ToDo);
 })
 
 app.listen(8080, function () {
