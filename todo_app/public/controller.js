@@ -9,20 +9,38 @@ todoApp.controller('todoCtrl', function ($scope, $http) {
   $scope.todos = [];
 
   $scope.addTask = function () {
-    $http.post('http://localhost:8080/createTask', $scope.todo).
-      then(function (response) {
-        alert(response.data);
-        $scope.todo.text = '';
-      }, function (error) {
-        alert(error.data);
-        $scope.todo.text = '';
-      })
+    let found = false;
+    for (let index = 0; index < $scope.todos.length; index++) {
+      if ($scope.todos[index].text === $scope.todo.text) {
+        alert('Task already added');
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      $http.post('http://localhost:8080/createTask', $scope.todo).
+        then(function (response) {
+          alert('Task successfully added');
+          let task = response.data[0];
+          $scope.todos.push({ 'id': task._id, 'text': task.name });
+          $scope.todo.text = '';
+        }, function (error) {
+          alert(error.data);
+          $scope.todo.text = '';
+        })
+    }
   }
 
   $scope.deleteTask = function (taskId) {
     $http.delete('http://localhost:8080/deleteTask/' + taskId)
       .then(function (response) {
         alert(response.data);
+        for (index = 0; index < $scope.todos.length; index++) {
+          if ($scope.todos[index].id === taskId) {
+            $scope.todos.splice(index, 1);
+            break;
+          }
+        }
       }, function (error) {
         alert(error.data);
       })

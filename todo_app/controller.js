@@ -7,8 +7,14 @@ exports.createTask = function (req, res, text, TodoModel) {
       console.error("Error while saving task: ", err);
       res.status(400).send('Error saving task')
     } else {
-      console.log("Task successfully saved");
-      res.status(200).send('Task saved successfully');
+      TodoModel.find({ 'name': text }, function (err, task) {
+        if (err) {
+          console.error('Saved task not fetched from db');
+          res.status(400).send('Task saved but not fetched from db');
+        } else {
+          res.status(200).json(task);
+        }
+      })
     }
   })
 }
