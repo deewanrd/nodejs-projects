@@ -27,15 +27,26 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3" ng-if="todos.length==0">
+        <h2>No tasks added</h2>
+      </div>
+      <div class="col-sm-3" ng-if="todos.length > 0">
         <h2>List of tasks</h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-5" ng-repeat="todo in todos">
-
+    <br>
+    <div class="row" ng-repeat="todo in todos">
+      <div class="col-sm-1">
+        {{$index+1}}
       </div>
+      <div class="col-sm-3" style="margin-left: -50px">
+        <input class="form-control" type="text" ng-model="todo.text" ng-disabled="true"> &nbsp;
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-danger btn-md" ng-click="deleteTask(todo.id)">Delete Task</button>
+      </div>
+    </div>
   </body>
-  </div>
+</div>
 
 </html>
