@@ -40,7 +40,6 @@ todoApp.controller('todoCtrl', function ($scope, $http) {
           alert('No tasks in db');
         }
       }, function (error) {
-        console.error("Error fetching tasks: ", JSON.stringify(error.data));
         alert(error.data);
       })
   }
