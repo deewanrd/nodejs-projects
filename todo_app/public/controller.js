@@ -9,6 +9,10 @@ todoApp.controller('todoCtrl', function ($scope, $http) {
   $scope.todos = [];
 
   $scope.addTask = function () {
+    if ($scope.todo.text === '' || $scope.todo.text === undefined || $scope.todo.text === null) {
+      alert('Invalid input');
+      return;
+    }
     let found = false;
     for (let index = 0; index < $scope.todos.length; index++) {
       if ($scope.todos[index].text === $scope.todo.text) {
