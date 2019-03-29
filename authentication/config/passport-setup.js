@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
+const FacebookStrategy = require('passport-facebook');
 const keys = require('./keys');
 const User = require('../models/User');
 
@@ -8,7 +9,10 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, function (err, user) {
+  let query = {
+    'id': id
+  }
+  User.findOne(query, function (err, user) {
     if (err) {
       console.error('Error fetching profile');
       return done(err, null);
@@ -23,7 +27,7 @@ passport.use(new GoogleStrategy({
   'callbackURL': '/auth/google/redirect'
 }, function (accessToken, refreshToken, profile, done) {
   let query = {
-    'googleId': profile.id
+    'id': profile.id
   };
   User.findOne(query, function (err, existingUser) {
     if (err) {
@@ -34,7 +38,7 @@ passport.use(new GoogleStrategy({
     } else {
       let user = new User({
         'username': profile.displayName,
-        'googleId': profile.id
+        'id': profile.id
       });
       user.save()
         .then(function (result) {
@@ -45,4 +49,36 @@ passport.use(new GoogleStrategy({
         })
     }
   })
+}));
+
+passport.use(new FacebookStrategy({
+  'clientID': keys.facebook.appID,
+  'clientSecret': keys.facebook.appSecret,
+  'callbackURL': '/auth/facebook/redirect'
+}, function (accessToken, refreshToken, profile, done) {
+  let query = {
+    'id': profile.id
+  };
+  User.findOne(query).
+    then((existingUser) => {
+      if (existingUser) {
+        console.log("Facebook user already exists");
+        done(null, existingUser);
+      } else {
+        new User({
+          'username': profile.displayName,
+          'id': profile.id
+        }).save(function (err, result) {
+          if (err) {
+            console.log("Error daving fb user");
+            done(err, null);
+          } else {
+            console.log("FB user saved");
+            done(null, result);
+          }
+        })
+      }
+    }).catch((err) => {
+      console.error("Error finding fb profile");
+    })
 }))

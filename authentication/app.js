@@ -30,7 +30,11 @@ app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
 
 app.get('/', (req, res) => {
-  res.render('home');
+  if (req.isAuthenticated()) {
+    res.redirect('/profile');
+  } else {
+    res.render('home');
+  }
 });
 
 app.listen(3000, () => {

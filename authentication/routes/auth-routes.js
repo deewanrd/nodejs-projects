@@ -2,7 +2,11 @@ const router = require('express').Router();
 const passport = require('passport');
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  if (req.isAuthenticated()) {
+    res.redirect('/profile');
+  } else {
+    res.render('login');
+  }
 });
 
 router.get('/logout', (req, res) => {
@@ -19,5 +23,18 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/profile');
 });
+
+router.get('/facebook', passport.authenticate('facebook',
+  {
+    scope: ['user_friends', 'manage_pages']
+  }), (req, res) => {
+    res.send('Logging in with facebook');
+  });
+
+router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) => {
+  res.redirect('/profile');
+})
+
+
 
 module.exports = router;
