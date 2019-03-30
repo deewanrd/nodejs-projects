@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
+const GithubStrategy = require('passport-github2');
 const keys = require('./keys');
 const User = require('../models/User');
 
@@ -81,4 +82,34 @@ passport.use(new FacebookStrategy({
     }).catch((err) => {
       console.error("Error finding fb profile");
     })
+}));
+
+passport.use(new GithubStrategy({
+  'clientID': keys.github.clientID,
+  'clientSecret': keys.github.clientSecret,
+  'callbackURL': '/auth/github/redirect'
+}, function (accessToken, refreshToken, profile, done) {
+  let query = {
+    'id': profile.id
+  };
+  User.findOne(query, function (err, existingUser) {
+    if (err) {
+      console.error('Error finding github profile: ', err);
+    } else if (existingUser) {
+      console.log('Github user already exists');
+      done(null, existingUser);
+    } else {
+      new User({
+        'username': profile.displayName,
+        'id': profile.id
+      }).save(function (err, result) {
+        if (err) {
+          console.error('Error saving github profile: ', err);
+        } else {
+          console.log("Github user saved successfully");
+          done(err, result);
+        }
+      })
+    }
+  })
 }))

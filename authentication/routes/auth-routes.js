@@ -16,9 +16,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/google', passport.authenticate('google', {
   'scope': ['profile']
-}), (req, res) => {
-  res.send('logging in with google');
-});
+}));
 
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/profile');
@@ -27,14 +25,18 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 router.get('/facebook', passport.authenticate('facebook',
   {
     scope: ['user_friends', 'manage_pages']
-  }), (req, res) => {
-    res.send('Logging in with facebook');
-  });
+  }));
 
 router.get('/facebook/redirect', passport.authenticate('facebook'), (req, res) => {
   res.redirect('/profile');
-})
+});
 
+router.get('/github', passport.authenticate('github', {
+  'scope': ['user:email']
+}));
 
+router.get('/github/redirect', passport.authenticate('github'), function (req, res) {
+  res.redirect('/profile');
+});
 
 module.exports = router;
