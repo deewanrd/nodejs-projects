@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="booksApp">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="controller.js"></script>
+
+</head>
+<title>Books</title>
+<div class="container">
+  <div class="row" style="background-color: azure">
+    <h1 style="text-align: center">Books App</h1>
+  </div>
+  &nbsp;
+
+  <body ng-controller="bookCtrl">
+    <div class="row">
+      <div class="col-sm-3">
+        <h2>List of subjects</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <select class="form-control" ng-model="selectedSubject" ng-change="displaySubjectBooks(selectedSubject)">
+          <option value="" disabled>Select</option>
+          <option ng-repeat="subject in subjects">{{subject}}</option>
+        </select>
+      </div>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="selectedSubject">
+      <div class="col-sm-7">
+        <h2>Books of Subject: {{selectedSubject}}</h2>
+      </div>
+    </div>
+    <div class="row" ng-if="selectedSubject">
+      <div class="col-xs-10">
+        <select class="form-control" ng-model="selectedBookId" ng-options="book.title for book in books" ng-change="displayBookDetails(selectedBookId.id)">
+          <option value="" disabled>Select</option>
+        </select>
+      </div>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="selectedBookId">
+      <div class="col-sm-7">
+        <h2>Book Details of: {{book.title}}</h2>
+      </div>
+    </div>
+    <div class="row form-group" ng-if="selectedBookId">
+      <div class="row" ng-repeat="(key,value) in book" style="margin-top:5px;">
+        <div class="col-xs-2"><label>{{key}}</label></div>
+        <div class="col-xs-4"><input type="text" class="form-control" value="{{value}}" ng-model="book[key]"></div>
+        <br>
+      </div>
+      <div class="row" ng-repeat="(keys,values) in bookPropertiesArray" style="margin-top:5px;">
+        <div class="col-xs-2"><label>{{keys}}</label></div>
+        <div class="col-xs-4" ng-repeat="val in values"><input type="text" class="form-control" value="{{val}}" ng-model="bookPropertiesArray[keys][$index]"></div>
+      </div>
+      <div class="row" ng-repeat="(key,value) in bookPropertiesObject" style="margin-top:5px;">
+        <div class="row" ng-repeat="(innerKey,innerValue) in value" style="margin-top:5px;">
+          <div class="col-xs-2"><label>{{innerKey}}</label></div>
+          <div class="col-xs-4"><input type="text" class="form-control" value="{{innerValue}}" ng-model="bookPropertiesObject[key][innerKey]"></div>
+        </div>
+      </div>
+      <button class="btn btn-success" ng-click="updateBook()">Update</button>
+    </div>
+
+  </body>
+</div>
+
+</html>
