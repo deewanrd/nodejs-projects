@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="smsApp">
+
+<head>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      padding: 10 px;
+      text-align: center
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+
+
+    table tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+  <script src="controller.js"></script>
+
+</head>
+<title>SMS Sending App</title>
+<div class="container">
+  <div class="row" style="background-color: azure">
+    <h1 style="text-align: center">SMS Sending App</h1>
+  </div>
+  &nbsp;
+
+  <body ng-controller="smsCtrl">
+    <div class="row">
+      <table ng-table="tableData" class="table" show-filter="true">
+        <tr ng-repeat="contact in $data">
+          <td title="'First Name'" filter="{ firstName: 'text'}">{{contact.firstName}}</td>
+          <td title="'Last Name'" filter="{ lastName: 'text'}">{{contact.lastName}}</td>
+          <td title="'Phone'" filter="{ phone: 'number'}">{{contact.phone}}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</div>
+
+</html>
