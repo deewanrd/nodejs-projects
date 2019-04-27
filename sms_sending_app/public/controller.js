@@ -21,6 +21,10 @@ smsApp.controller('smsCtrl', ['$scope', '$http', 'NgTableParams', function ($sco
       })
   };
 
+  $scope.send = function (contact) {
+    console.log("Info: ", contact);
+  }
+
   function init() {
     $scope.fetchContacts();
   }

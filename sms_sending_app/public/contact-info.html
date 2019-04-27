@@ -1,0 +1,30 @@
+<div class="form-group">
+  <div class="row">
+    <div class="col-xs-2">
+      <label>First Name: </label>
+    </div>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" ng-model="contact.firstName">
+    </div>
+  </div>&nbsp;
+  <div class="row">
+    <div class="col-xs-2">
+      <label>Last Name: </label>
+    </div>
+    <div class="col-xs-4">
+      <input type="text" class="form-control" ng-model="contact.lastName">
+    </div>
+  </div>&nbsp;
+  <div class="row">
+    <div class="col-xs-2">
+      <label>Phone: </label>
+    </div>
+    <div class="col-xs-2">
+      <input type="text" class="form-control" ng-model="contact.phone">
+    </div>
+  </div>&nbsp;
+  <div class="row">
+    <a class="btn btn-primary btn-md" type="button" ui-sref="sendMessage({contact:contact})">Send Message
+        </a>
+  </div>
+</div>

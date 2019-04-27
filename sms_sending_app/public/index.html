@@ -25,8 +25,13 @@
   <link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
   <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
-  <script src="controller.js"></script>
+  <script src="sms-app.js"></script>
+  <script src="contacts.controller.js"></script>
+  <script src="contact.info.controller.js"></script>
+  <script src="messages.controller.js"></script>
+  <script src="send.message.controller.js"></script>
 
 </head>
 <title>SMS Sending App</title>
@@ -35,18 +40,8 @@
     <h1 style="text-align: center">SMS Sending App</h1>
   </div>
   &nbsp;
-
-  <body ng-controller="smsCtrl">
-    <div class="row">
-      <table ng-table="tableData" class="table" show-filter="true">
-        <tr ng-repeat="contact in $data">
-          <td title="'First Name'" filter="{ firstName: 'text'}">{{contact.firstName}}</td>
-          <td title="'Last Name'" filter="{ lastName: 'text'}">{{contact.lastName}}</td>
-          <td title="'Phone'" filter="{ phone: 'number'}">{{contact.phone}}</td>
-        </tr>
-      </table>
-    </div>
-  </body>
+  <div ng-include="'navigation.html'"></div>
+  <div ui-view></div>
 </div>
 
 </html>

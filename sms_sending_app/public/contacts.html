@@ -1,0 +1,32 @@
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 10 px;
+    text-align: center
+  }
+
+  table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+
+
+  table tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+</style>
+
+<div class="row">
+  <table ng-table="tableData" class="table" show-filter="true">
+    <tr ng-repeat="contact in $data">
+      <td class="col-xs-4" title="'First Name'" filter="{ firstName: 'text'}">{{contact.firstName}}</td>
+      <td class="col-xs-4" title="'Last Name'" filter="{ lastName: 'text'}">{{contact.lastName}}</td>
+      <td class="col-xs-4" title="'Action'">
+        <a class="btn btn-primary btn-md" type="button" ui-sref="contact-info({id: contact.id})">Send Message
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
