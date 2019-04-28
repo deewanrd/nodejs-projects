@@ -1,10 +1,62 @@
-[{"id":1,"firstName":"Skelly","lastName":"Penylton","phone":"917976225905"},
-{"id":2,"firstName":"Mildred","lastName":"Lyosik","phone":"917976225905"},
-{"id":3,"firstName":"Bertha","lastName":"Gowdie","phone":"917976225905"},
-{"id":4,"firstName":"Aubine","lastName":"Applegarth","phone":"919971792703"},
-{"id":5,"firstName":"Roobbie","lastName":"Sugarman","phone":"919971792703"},
-{"id":6,"firstName":"Sasha","lastName":"Starcks","phone":"919971792703"},
-{"id":7,"firstName":"Saundra","lastName":"McGeraghty","phone":"919971792703"},
-{"id":8,"firstName":"Daryl","lastName":"Grishanov","phone":"919971792703"},
-{"id":9,"firstName":"Hedvig","lastName":"Wainman","phone":"919971792703"},
-{"id":10,"firstName":"Dennie","lastName":"Borell","phone":"919971792703"}]
+[
+  {
+    "id": 1,
+    "firstName": "Skelly",
+    "lastName": "Penylton",
+    "phone": "917976225905"
+  },
+  {
+    "id": 2,
+    "firstName": "Mildred",
+    "lastName": "Lyosik",
+    "phone": "917976225905"
+  },
+  {
+    "id": 3,
+    "firstName": "Bertha",
+    "lastName": "Gowdie",
+    "phone": "917976225905"
+  },
+  {
+    "id": 4,
+    "firstName": "Aubine",
+    "lastName": "Applegarth",
+    "phone": "919971792703"
+  },
+  {
+    "id": 5,
+    "firstName": "Roobbie",
+    "lastName": "Sugarman",
+    "phone": "919971792703"
+  },
+  {
+    "id": 6,
+    "firstName": "Sasha",
+    "lastName": "Starcks",
+    "phone": "919971792703"
+  },
+  {
+    "id": 7,
+    "firstName": "Saundra",
+    "lastName": "McGeraghty",
+    "phone": "919971792703"
+  },
+  {
+    "id": 8,
+    "firstName": "Daryl",
+    "lastName": "Grishanov",
+    "phone": "919971792703"
+  },
+  {
+    "id": 9,
+    "firstName": "Hedvig",
+    "lastName": "Wainman",
+    "phone": "919971792703"
+  },
+  {
+    "id": 10,
+    "firstName": "Dennie",
+    "lastName": "Borell",
+    "phone": "919971792703"
+  }
+]
