@@ -1,0 +1,30 @@
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 10 px;
+    text-align: center
+  }
+
+  table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+
+
+  table tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+</style>
+
+<div class="row">
+  <table ng-table="tableData" class="table" show-filter="true">
+    <tr ng-repeat="message in $data">
+      <td class="col-xs-3" title="'Recipient Name'" filter="{ recipientName: 'text'}">{{message.recipientName}}</td>
+      <td class="col-xs-3" title="'Text'" filter="{ text: 'text'}">{{message.text}}</td>
+      <td class="col-xs-3" title="'OTP'" filter="{ otp: 'number'}">{{message.otp}}</td>
+      <td class="col-xs-3" title="'Sent at'" filter="{ sent_at: 'text'}" sortable="'sent_at'">{{message.sent_at}}</td>
+    </tr>
+  </table>
+</div>

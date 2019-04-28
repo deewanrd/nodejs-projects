@@ -17,15 +17,14 @@ smsApp.config(function ($stateProvider, $urlRouterProvider) {
       'controller': 'ContactInfoCtrl'
     })
     .state('sendMessage', {
-      'url': '/send-message',
+      'url': '/send-message/:id',
       'templateUrl': 'send-message.html',
-      'controller': 'SendMessageCtrl',
-      'params': { 'contact': null }
+      'controller': 'SendMessageCtrl'
     })
     .state('messages', {
       'url': '/messages',
       'templateUrl': 'messages.html',
-      'controller': 'MessageCtrl'
+      'controller': 'MessagesCtrl'
     })
   $urlRouterProvider.otherwise('/contacts');
 });
