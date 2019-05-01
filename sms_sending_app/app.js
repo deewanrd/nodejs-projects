@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const controller = require('./routes/controller');
 
-mongoose.connect('mongodb://localhost:27017/sms_app', { 'useNewUrlParser': true }, function (err) {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sms_app', { 'useNewUrlParser': true }, function (err) {
   if (err) {
     console.error(`Error connecting to mongodb: ${err}`);;
     return;
@@ -37,7 +37,7 @@ app.post('/sendMessage', (req, res) => {
   controller.sendMessage(req, res);
 });
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 promise.then((resolve) => {
   console.log("Contacts imported from file and stored in cache");
