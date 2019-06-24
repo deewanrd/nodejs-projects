@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="bblApp">
+
+<head>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      padding: 10 px;
+      text-align: center
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+
+    .fa {
+      padding: 20px;
+      font-size: 30px;
+      width: 50px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="https://unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.js"></script>
+  <script src="controller.js"></script>
+
+</head>
+<title>BBL Stats App</title>
+<div class="container">
+  <div class="row" style="background-color: azure">
+    <h1 style="text-align: center">BBL Stats App</h1>
+  </div>
+  &nbsp;
+
+  <body ng-controller="statsCtrl">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>Search For Player</h2>
+      </div>
+      <div class="col-sm-6">
+        <h2>Search For Team</h2>
+      </div>
+    </div>
+    <!--Suggestions will be shown when user types two characters. If the characters have result,
+      then they will be displayed, else there would be nothing displayed -->
+    <div class="row">
+      <div class="col-sm-6">
+        <ui-select on-select="getPlayerStats($item)" ng-model="playerName.name" theme="bootstrap">
+          <ui-select-match placeholder="Select Player">{{$select.selected.name}}</ui-select-match>
+          <ui-select-choices style="overflow-x:auto;" position='down' repeat="playerName in playerNames | filter: $select.search" refresh="getSuggestionsForPlayerName($select.search)"
+            refresh-delay="0" minimum-input-length="2">
+            <span ng-bind="playerName.name"></span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="col-sm-6">
+        <ui-select on-select="getTeamStats($item)" ng-model="teamName" theme="bootstrap">
+          <ui-select-match placeholder="Select Team">{{$select.selected}}</ui-select-match>
+          <ui-select-choices style="overflow-x:auto;" position='down' repeat="teamName in teamNames | filter: $select.search" refresh="getSuggestionsForTeamName($select.search)"
+            refresh-delay="0" minimum-input-length="2">
+            <span ng-bind="teamName"></span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="props.showPlayerInfo">
+      <div class="col-xs-6">
+        <p style="text-align: center"><b>Batting Stats</b></p>
+      </div>
+      <div class="col-xs-6">
+        <p style="text-align: center"><b>Bowling Stats</b></p>
+      </div>
+    </div>
+    <div class="row" ng-if="props.showPlayerInfo">
+      <div class="col-xs-6" style="border-style:solid;border-color:black" ;>
+        <ul>
+          <li ng-repeat="(key,value) in battingStats">
+            <label>{{key}} : </label> {{value}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-xs-6" style="border-style:solid;border-color:black" ;>
+        <ul>
+          <li ng-repeat="(key,value) in bowlingStats">
+            <label>{{key}} : </label> {{value}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="props.showTeamInfo">
+      <p style="text-align: center"><b>Team Stats</b></p>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="props.showTeamInfo">
+      <table ng-table="tableData" class="table" show-filter="true">
+        <tr ng-repeat="stat in $data">
+          <td class="col-xs-3" title="'Name'" filter="{ name: 'text'}">{{stat.name}}</td>
+          <td class="col-xs-3" title="'Team'" filter="{ team: 'text'}">{{stat.team}}</td>
+          <td class="col-xs-3" title="'Nationality'" filter="{ nationality: 'text'}">{{stat.nationality}}</td>
+          <td class="col-xs-3" title="'Value'" filter="{ value: 'number'}">{{stat.value}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </body>
+</div>
+
+</html>
