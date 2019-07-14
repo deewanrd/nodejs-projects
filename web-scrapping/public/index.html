@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US" ng-app="webScrappingApp">
+
+<head>
+  <style>
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 80px;
+      height: 80px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      padding: 10 px;
+      text-align: center
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+  <script src="controller.js"></script>
+
+</head>
+<title>WebScrapping App</title>
+<div class="container">
+  <div class="row" style="background-color: azure">
+    <h1 style="text-align: center">Reviews App</h1>
+  </div>
+  &nbsp;
+
+  <body ng-controller="webScrapCtrl">
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>Select Url for fetching review</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        <select ng-click="fetchReviews(reviewPageUrl)" class="form-control" ng-model="reviewPageUrl" ng-options="reviewPageUrl for reviewPageUrl in reviewPageUrls">
+        <option value="" disabled>Select...</option>
+        </select>
+      </div>
+    </div>
+    &nbsp;
+    <div class="loader" ng-show="loading" style="margin: auto"></div>
+    &nbsp;
+    <div class="row">
+      <h2 style="text-align: center" ng-if="reviews.length>0"><b>Reviews</b></h2>
+    </div>
+    &nbsp;
+    <div class="row" ng-if="reviews.length>0">
+      <table ng-table="tableData" class="table" show-filter="true">
+        <tr ng-repeat="review in $data">
+          <td class="col-xs-3" title="'Reviewer Name'" filter="{ name: 'text'}">{{review.name}}</td>
+          <td class="col-xs-3" title="'Rating'" filter="{ rating: 'number'}">{{review.rating}}</td>
+          <td class="col-xs-3" title="'Comment'" filter="{ comment: 'text'}">{{review.reviewComment}}</td>
+          <td class="col-xs-3" title="'date'" filter="{ date: 'text'}">{{review.date}}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+  </body>
+</div>
+
+</html>
