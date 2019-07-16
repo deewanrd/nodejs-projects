@@ -16,7 +16,10 @@ app.get('/fetchReviews', (req, res) => {
   let reviewPageUrl = req.query.reviewPageUrl;
   controller.fetchReviews(req, res, reviewPageUrl)
     .then((result) => {
-      res.status(200).send(result);
+      if (result.length > 0) {
+        return res.status(200).send(result);
+      }
+      return res.status(200).send('No reviews found');
     }).catch((err) => {
       res.status(400).send(err);
     })
