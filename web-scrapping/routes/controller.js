@@ -4,15 +4,15 @@ const NUMBER_OF_REVIEWS_SELECTOR = "#customerReviews > div:nth-child(1) > dl > d
 
 exports.fetchReviews = function (req, res, reviewPageUrl) {
   return new Promise(async (resolve, reject) => {
+    let browser = null;
     try {
-      const browser = await puppeteer.launch({ headless: false, 'userDataDir': './data', 'devtools': true });
+      browser = await puppeteer.launch({ headless: true, 'userDataDir': './data' });
       const page = await browser.newPage();
       await page.goto(reviewPageUrl);
       await page.click(REVIEW_TAB_SELECTOR);
-      await page.waitFor(2 * 1000);
+      await page.waitForSelector(NUMBER_OF_REVIEWS_SELECTOR);
 
       let noOfReviews = await page.evaluate((selector) => {
-        debugger;
         let text = document.querySelector(selector).innerText;
         let textArray = text.split(" ");
         let reviewsCount = textArray[textArray.length - 1].replace('of', '').trim();
@@ -27,7 +27,6 @@ exports.fetchReviews = function (req, res, reviewPageUrl) {
 
       while (currentPage <= totalPages) {
         let newReviews = await page.evaluate(() => {
-          debugger;
           let results = [];
           let items = document.querySelectorAll('div.review');
           items.forEach((item) => {
@@ -45,15 +44,12 @@ exports.fetchReviews = function (req, res, reviewPageUrl) {
         });
         finalResult = finalResult.concat(newReviews);
         if (currentPage < totalPages) {
-          let nth_child;
-          if (currentPage == 1) {
-            nth_child = 1;
-          } else {
-            nth_child = 2;
-          }
           await Promise.all([
-            await page.click(`#customerReviews > div:nth-child(1) > dl > dd > a:nth-child(${nth_child})`),
-            await page.waitForSelector('div.review')
+            await page.evaluate(() => {
+              debugger;
+              document.querySelector("#customerReviews > div:nth-child(1) > dl > dd > a:last-child").click()
+            }),
+            await page.waitForSelector("#customerReviews > div:nth-child(1) > dl > dt")
           ])
         }
         currentPage++;
@@ -63,6 +59,7 @@ exports.fetchReviews = function (req, res, reviewPageUrl) {
       return resolve(finalResult);
     } catch (error) {
       console.error("Error occured while crawling web page: ", error);
+      browser.close();
       return reject(error.message);
     }
   });

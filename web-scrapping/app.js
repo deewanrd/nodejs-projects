@@ -17,11 +17,15 @@ app.get('/fetchReviews', (req, res) => {
   controller.fetchReviews(req, res, reviewPageUrl)
     .then((result) => {
       if (result.length > 0) {
+        console.log(`Total no. of reviews found: ${result.length}`);
         return res.status(200).send(result);
       }
       return res.status(200).send('No reviews found');
     }).catch((err) => {
-      res.status(400).send(err);
+      if (err.includes('No node found for selector')) {
+        return res.status(400).send('There are no reviews present in the given url');
+      }
+      return res.status(400).send(err);
     })
 });
 
