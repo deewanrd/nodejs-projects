@@ -13,17 +13,19 @@ todoApp.controller('webScrapCtrl', function ($scope, $http, NgTableParams) {
   };
 
   $scope.fetchReviews = function (reviewPageUrl) {
-    $scope.loading = true;
-    let url = document.location.protocol + "//" + document.location.host + '/fetchReviews';
-    $http.get(url, {
-      'params': { 'reviewPageUrl': reviewPageUrl },
-    })
-      .then((response) => {
-        $scope.loading = false;
-        $scope.displayReviews(response.data);
-      }).catch((error) => {
-        $scope.loading = false;
-        alert(error.data.name);
+    if (reviewPageUrl) {
+      $scope.loading = true;
+      let url = document.location.protocol + "//" + document.location.host + '/fetchReviews';
+      $http.get(url, {
+        'params': { 'reviewPageUrl': reviewPageUrl },
       })
+        .then((response) => {
+          $scope.loading = false;
+          $scope.displayReviews(response.data);
+        }).catch((error) => {
+          $scope.loading = false;
+          alert(error.data.name);
+        })
+    }
   };
 });

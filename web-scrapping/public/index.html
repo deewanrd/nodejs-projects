@@ -71,7 +71,7 @@
     </div>
     <div class="row">
       <div class="col-sm-8">
-        <select ng-click="fetchReviews(reviewPageUrl)" class="form-control" ng-model="reviewPageUrl" ng-options="reviewPageUrl for reviewPageUrl in reviewPageUrls">
+        <select ng-change="fetchReviews(reviewPageUrl)" class="form-control" ng-model="reviewPageUrl" ng-options="reviewPageUrl for reviewPageUrl in reviewPageUrls">
         <option value="" disabled>Select...</option>
         </select>
       </div>
