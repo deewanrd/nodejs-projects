@@ -27,6 +27,6 @@ Through API --->
 4. Open Postman.
 5. Create a basic GET request with the following endpoint and the parameters:
 
-http://localhost:8000/fetchReviews?reviewPageUrl="http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=6247485%26Sku=8099910"
+http://localhost:8000/fetchReviews?reviewPageUrl="http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=3415697"
 
 The parameter is reviewPageUrl whose value is a url for which we want to crawl the reviews.

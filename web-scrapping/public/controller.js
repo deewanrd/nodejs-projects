@@ -24,7 +24,7 @@ todoApp.controller('webScrapCtrl', function ($scope, $http, NgTableParams) {
           $scope.displayReviews(response.data);
         }).catch((error) => {
           $scope.loading = false;
-          alert(error.data.name);
+          alert(error.data);
         })
     }
   };
